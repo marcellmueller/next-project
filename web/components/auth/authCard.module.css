@@ -1,0 +1,10 @@
+.auth-card {
+  display: flex;
+  flex-direction: column;
+  margin: 4em auto;
+  width: 100%;
+  max-width: 320px;
+  border-radius: var(--border-card-radius);
+  box-shadow: var(--elevation-medium);
+  padding: var(--card-padding);
+}

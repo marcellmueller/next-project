@@ -1,0 +1,24 @@
+.textArea {
+  display: block;
+  width: 100%;
+  border: 1px solid green;
+  border-radius: 4px;
+  padding: 16px;
+  font-family: inherit;
+  font-size: 1rem;
+  color: black;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.textArea::placeholder {
+  color: lightgrey;
+}
+
+.textArea:hover {
+  border-color: red;
+}
+
+.textArea:focus {
+  border-color: red;
+  outline: none;
+}

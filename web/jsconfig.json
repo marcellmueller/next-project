@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./",
+    "paths": {
+      "@/components": ["components"],
+      "@/components/auth": ["components/auth"],
+      "@/components/form": ["components/form"],
+      "@/components/site": ["components/site"],
+      "@/context": ["context"],
+      "@/context/*": ["context/*"],
+      "@/lib/": ["lib/"],
+      "@/lib/auth": ["lib/auth"]
+    }
+  }
+}
