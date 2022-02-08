@@ -1,9 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { firebase } from '@/clients';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import { logInWithEmailAndPassword, signInWithGoogle } from 'lib/auth';
 
 const initialState = {
   initialized: false,
+  accessToken: '',
   authModal: false,
   allowCookies: false,
   authPending: true,
@@ -21,6 +23,7 @@ const StoreContextProvider = ({ children }) => {
   const [user, userLoading] = useAuthState(firebase.auth());
 
   useEffect(() => {
+    console.log(store);
     if (!initialized) {
       //Do stuff
       setInitialized(true);
@@ -43,6 +46,44 @@ const useStore = () => {
   return store;
 };
 
+function useSignIn() {
+  const [loading, setLoading] = useState(false);
+  const { setStore } = useContext(StoreContext);
+  const closeAuthModal = useCloseAuthModal();
+
+  async function signIn(email, password) {
+    setLoading(true);
+
+    if (email && password) {
+      try {
+        const res = await logInWithEmailAndPassword(email, password);
+        setStore((prev) => ({
+          ...prev,
+          email: res.user.email,
+        }));
+        setLoading(false);
+        closeAuthModal();
+      } catch (err) {
+        setLoading(false);
+      }
+    } else {
+      try {
+        const res = await signInWithGoogle();
+        setStore((prev) => ({
+          ...prev,
+          email: res.user.email,
+        }));
+        setLoading(false);
+        closeAuthModal();
+      } catch (err) {
+        setLoading(false);
+      }
+    }
+  }
+
+  return { signIn, loading };
+}
+
 const useOpenAuthModal = () => {
   const { setStore } = useContext(StoreContext);
 
@@ -55,22 +96,39 @@ const useOpenAuthModal = () => {
   return openAuthModal;
 };
 
-const useDismissAuthModal = () => {
+const useCloseAuthModal = () => {
   const { setStore } = useContext(StoreContext);
 
-  async function dismissAuthModal() {
+  async function closeAuthModal() {
     setStore((prevState) => ({
       ...prevState,
       authModal: false,
     }));
   }
 
-  return dismissAuthModal;
+  return closeAuthModal;
+};
+
+const useInitUser = () => {
+  const { setStore } = useContext(StoreContext);
+
+  async function initUser(user) {
+    const { accessToken, email } = user;
+    setStore((prevState) => ({
+      ...prevState,
+      accessToken: accessToken,
+      email: email,
+    }));
+  }
+
+  return initUser;
 };
 
 export {
   StoreContextProvider,
-  useDismissAuthModal,
+  useCloseAuthModal,
+  useInitUser,
   useOpenAuthModal,
+  useSignIn,
   useStore,
 };

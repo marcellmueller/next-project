@@ -9,6 +9,7 @@
       "@/context": ["context/store"],
       "@/context/*": ["context/*"],
       "@/clients": ["lib/clients"],
+      "@/icons": ["components/icons"],
       "@/lib/": ["lib/"],
       "@/lib/auth": ["lib/auth"]
     }

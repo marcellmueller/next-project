@@ -7,10 +7,13 @@ import {
   signInWithGoogle,
 } from '@/lib/auth';
 import { AuthCard } from '.';
+import { Button } from '@/components';
+import { Input } from '@/components/form';
+import { Google } from '@/icons';
 
 import styles from './createAccount.module.css';
 
-const CreateAccount = () => {
+const CreateAccount = ({ onChangeAuthForm }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
@@ -25,28 +28,36 @@ const CreateAccount = () => {
   }, [user, loading]);
   return (
     <AuthCard>
-      <input
+      <Input
         type="text"
         value={name}
         onChange={(e) => setName(e.target.value)}
         placeholder="Full Name"
       />
-      <input
+      <Input
         type="text"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         placeholder="E-mail Address"
       />
-      <input
+      <Input
         type="password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
         placeholder="Password"
       />
-      <button onClick={register}>Register</button>
-      <button onClick={signInWithGoogle}>Register with Google</button>
+      <Button onClick={register}>Register</Button>
+      <Button onClick={signInWithGoogle}>
+        <Google />
+      </Button>
       <div>
-        Already have an account? <Link href="/">Login</Link> now.
+        <Button
+          onClick={() => {
+            onChangeAuthForm && onChangeAuthForm('login');
+          }}
+        >
+          Login
+        </Button>
       </div>
     </AuthCard>
   );

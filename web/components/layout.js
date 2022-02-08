@@ -1,6 +1,8 @@
 import Head from 'next/head';
 
 import { Footer, Nav } from '@/components/site';
+import { AuthModal } from '@/components/auth';
+
 import styles from './layout.module.css';
 
 const Layout = ({ title, children, site = {} }) => {
@@ -23,6 +25,7 @@ const Layout = ({ title, children, site = {} }) => {
         <link rel="manifest" href="/manifest.webmanifest" /> */}
       </Head>
 
+      <AuthModal />
       <Nav data={site.header} />
       <main className={styles.main}>{children}</main>
       <Footer data={site.footer} />

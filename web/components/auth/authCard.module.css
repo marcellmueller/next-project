@@ -7,4 +7,5 @@
   border-radius: var(--border-card-radius);
   box-shadow: var(--elevation-medium);
   padding: var(--card-padding);
+  background-color: white;
 }

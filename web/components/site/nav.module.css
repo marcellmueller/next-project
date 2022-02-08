@@ -5,4 +5,18 @@
   width: 100vw;
   background-color: black;
   color: white;
+  z-index: 2;
+}
+
+.container {
+  margin: 0 auto;
+  padding: 8px;
+  max-width: var(--page-max-width);
+  display: flex;
+  justify-content: space-between;
+}
+
+.account {
+  display: flex;
+  align-items: center;
 }

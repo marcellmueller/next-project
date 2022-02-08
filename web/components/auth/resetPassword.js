@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import Link from 'next/link';
-import { auth, sendPasswordResetEmail } from '@/lib/auth';
+import { auth, sendPasswordReset } from '@/lib/auth';
 import { AuthCard } from '.';
+import { Button } from '@/components';
 
 import styles from './resetPassword.module.css';
 
-function Reset() {
+function Reset({ onChangeAuthForm }) {
   const [email, setEmail] = useState('');
   const [user, loading, error] = useAuthState(auth);
-  const navigate = useNavigate();
   useEffect(() => {
     if (loading) return;
     if (user) console.log(['logged in']);
@@ -22,11 +22,24 @@ function Reset() {
         onChange={(e) => setEmail(e.target.value)}
         placeholder="E-mail Address"
       />
-      <button onClick={() => sendPasswordResetEmail(email)}>
+      <Button onClick={() => sendPasswordReset(email)}>
         Send password reset email
-      </button>
+      </Button>
       <div>
-        Don't have an account? <Link href="/register">Register</Link> now.
+        <Button
+          onClick={() => {
+            onChangeAuthForm && onChangeAuthForm('login');
+          }}
+        >
+          Login
+        </Button>
+        <Button
+          onClick={() => {
+            onChangeAuthForm && onChangeAuthForm('create');
+          }}
+        >
+          Create Account
+        </Button>
       </div>
     </AuthCard>
   );
