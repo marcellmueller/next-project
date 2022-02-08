@@ -6,8 +6,9 @@
       "@/components/auth": ["components/auth"],
       "@/components/form": ["components/form"],
       "@/components/site": ["components/site"],
-      "@/context": ["context"],
+      "@/context": ["context/store"],
       "@/context/*": ["context/*"],
+      "@/clients": ["lib/clients"],
       "@/lib/": ["lib/"],
       "@/lib/auth": ["lib/auth"]
     }
