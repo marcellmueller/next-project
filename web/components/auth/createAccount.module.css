@@ -1,0 +1,9 @@
+.login-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 16px;
+
+  & svg {
+    margin-left: 4px;
+  }
+}

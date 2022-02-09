@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-
+import cx from 'classnames';
 import { auth } from 'lib/auth';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { Button } from '@/components';
@@ -22,9 +22,9 @@ const Login = ({ onChangeAuthForm }) => {
   // }, [user, loading]);
 
   return (
-    <AuthCard>
+    <AuthCard title="Sign in">
       {!loading ? (
-        <>
+        <form>
           <Input
             type="text"
             value={email}
@@ -37,37 +37,43 @@ const Login = ({ onChangeAuthForm }) => {
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Password"
           />
-          <Button
-            onClick={() => {
-              if (email && password) {
-                signIn(email, password);
-              }
-            }}
-          >
-            Login
-          </Button>
-          <Button onClick={() => signIn()}>
-            <Google />
-          </Button>
-          <div>
+          <div className={styles['login-buttons']}>
             <Button
+              type="submit"
+              onClick={() => {
+                if (email && password) {
+                  signIn(email, password);
+                }
+              }}
+            >
+              Login
+            </Button>
+            <Button onClick={() => signIn()}>
+              Sign in with google <Google size={16} />
+            </Button>
+          </div>
+
+          <div className={cx(styles['login-buttons'], styles['lower-buttons'])}>
+            <Button
+              dark
               onClick={() => {
                 onChangeAuthForm && onChangeAuthForm('reset');
               }}
+              small
             >
               Forgot Password
             </Button>
-          </div>
-          <div>
             <Button
+              dark
               onClick={() => {
                 onChangeAuthForm && onChangeAuthForm('create');
               }}
+              small
             >
               Create Account
             </Button>
           </div>
-        </>
+        </form>
       ) : (
         <div className={styles.loading}>
           <Spinner />

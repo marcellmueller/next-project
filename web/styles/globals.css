@@ -10,6 +10,11 @@
     0 15px 12px rgba(0, 0, 0, 0.22);
 
   --transition-cubic-bezier: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+
+  --colour-saffron: #f9a03f;
+  --colour-emerald: #40916c;
+  --colour-viridian: #0a9396;
+  --colour-white: #fff;
 }
 
 html,

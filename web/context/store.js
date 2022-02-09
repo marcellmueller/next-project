@@ -23,6 +23,7 @@ const StoreContextProvider = ({ children }) => {
   const [user, userLoading] = useAuthState(firebase.auth());
 
   useEffect(() => {
+    //Leave here for development to monitor state
     console.log(store);
     if (!initialized) {
       //Do stuff
@@ -54,27 +55,26 @@ function useSignIn() {
   async function signIn(email, password) {
     setLoading(true);
 
+    const setUser = (user) => {
+      setStore((prev) => ({
+        ...prev,
+        email: user.email,
+      }));
+      setLoading(false);
+      closeAuthModal();
+    };
+
     if (email && password) {
       try {
         const res = await logInWithEmailAndPassword(email, password);
-        setStore((prev) => ({
-          ...prev,
-          email: res.user.email,
-        }));
-        setLoading(false);
-        closeAuthModal();
+        setUser(res.user);
       } catch (err) {
         setLoading(false);
       }
     } else {
       try {
         const res = await signInWithGoogle();
-        setStore((prev) => ({
-          ...prev,
-          email: res.user.email,
-        }));
-        setLoading(false);
-        closeAuthModal();
+        setUser(res.user);
       } catch (err) {
         setLoading(false);
       }

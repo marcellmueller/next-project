@@ -4,3 +4,12 @@
   align-items: center;
   justify-content: center;
 }
+
+.login-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.lower-buttons {
+  margin-top: 16px;
+}

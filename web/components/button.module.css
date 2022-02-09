@@ -1,0 +1,33 @@
+.button {
+  border-radius: 4px;
+  margin: 2px 0;
+  width: fit-content;
+  transition: all 0.3s;
+
+  &:hover {
+    opacity: 0.7;
+  }
+}
+
+.regular {
+  padding: 8px 16px;
+  font-size: 16px;
+}
+
+.small {
+  padding: 4px 8px;
+  font-size: 12px;
+}
+
+.light {
+  color: var(--colour-white);
+  background-color: var(--colour-saffron);
+}
+
+.dark {
+  background-color: var(--colour-emerald);
+}
+
+.outline {
+  border: 1px solid var(--colour-blue-300);
+}

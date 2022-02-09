@@ -27,7 +27,7 @@ const CreateAccount = ({ onChangeAuthForm }) => {
     if (loading) return;
   }, [user, loading]);
   return (
-    <AuthCard>
+    <AuthCard title="Create account">
       <Input
         type="text"
         value={name}
@@ -47,16 +47,20 @@ const CreateAccount = ({ onChangeAuthForm }) => {
         placeholder="Password"
       />
       <Button onClick={register}>Register</Button>
-      <Button onClick={signInWithGoogle}>
-        <Google />
-      </Button>
-      <div>
+
+      <div className={styles['login-buttons']}>
         <Button
+          dark
           onClick={() => {
             onChangeAuthForm && onChangeAuthForm('login');
           }}
+          small
         >
           Login
+        </Button>
+        <Button dark onClick={signInWithGoogle} small>
+          Sign in with Google
+          <Google size={12} />
         </Button>
       </div>
     </AuthCard>

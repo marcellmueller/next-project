@@ -9,3 +9,7 @@
   padding: var(--card-padding);
   background-color: white;
 }
+
+.title {
+  margin-bottom: 0.5em;
+}
