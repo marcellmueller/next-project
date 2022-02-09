@@ -1,20 +1,22 @@
-import { getStaticPage } from '@/api';
+import { getHomePage } from '@/api';
 
 import { Layout } from '@/components';
-
+import { Modules } from '@/components/home';
 const Home = ({ data }) => {
   const { page, site } = data;
-
-  return <Layout site={site}>Home</Layout>;
+  const { modules } = page;
+  return (
+    <Layout site={site}>
+      {modules &&
+        modules.map((module) => {
+          return <Modules module={module} />;
+        })}
+    </Layout>
+  );
 };
 
 export const getStaticProps = async () => {
-  const query = /* groq */ `
-    *[_type == 'pageHome'] | order(_updatedAt desc)[0] {
-      ...
-    }
-  `;
-  const data = await getStaticPage(query);
+  const data = await getHomePage();
 
   return {
     props: { data },

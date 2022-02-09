@@ -9,11 +9,13 @@ import {
 import { Menu, X } from 'react-feather';
 
 import { Button } from '@/components';
+import { NavItem } from '@/components/site';
 import { useOpenAuthModal, useSignOut, useStore } from '@/context';
 
 import styles from './navMobile.module.css';
 
-const NavMobile = () => {
+const NavMobile = ({ data }) => {
+  const { navItems } = data;
   const [open, setOpen] = useState(false);
   const targetRef = React.createRef();
   const { email } = useStore();
@@ -59,12 +61,21 @@ const NavMobile = () => {
               </button>
             </div>
 
-            <div className={styles['nav-content']}>Mobile nav content</div>
+            <div className={styles['nav-content']}>
+              <div className={styles['nav-items']}>
+                {navItems &&
+                  navItems.map((item, i) => {
+                    const { label, path } = item;
+                    return <NavItem label={label} key={i} path={path} />;
+                  })}
+              </div>
+            </div>
             <div className={styles.account}>
               {!email && !loading ? (
                 <Button
                   onClick={() => {
                     openAuthModal();
+                    setOpen(false);
                   }}
                 >
                   Sign In
@@ -74,6 +85,7 @@ const NavMobile = () => {
                 <Button
                   onClick={() => {
                     signOut();
+                    setOpen(false);
                   }}
                   warning
                 >

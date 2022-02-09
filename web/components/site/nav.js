@@ -11,11 +11,11 @@ const Nav = ({ data }) => {
           {navItems &&
             navItems.map((item, i) => {
               const { label, path } = item;
-              return <NavItem label={label} path={path} />;
+              return <NavItem label={label} key={i} path={path} />;
             })}
         </div>
         <AccountMenu />
-        <NavMobile />
+        <NavMobile data={data} />
       </div>
     </nav>
   );

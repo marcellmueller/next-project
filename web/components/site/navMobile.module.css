@@ -86,3 +86,8 @@
 .account {
   margin-top: 8px;
 }
+
+.nav-items {
+  display: flex;
+  flex-direction: column;
+}
