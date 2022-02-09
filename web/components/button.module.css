@@ -3,6 +3,8 @@
   margin: 2px 0;
   width: fit-content;
   transition: all 0.3s;
+  color: var(--colour-white);
+  background-color: var(--colour-saffron);
 
   &:hover {
     opacity: 0.7;
@@ -19,15 +21,19 @@
   font-size: 12px;
 }
 
-.light {
-  color: var(--colour-white);
-  background-color: var(--colour-saffron);
-}
-
 .dark {
   background-color: var(--colour-emerald);
 }
 
 .outline {
   border: 1px solid var(--colour-blue-300);
+}
+
+.warning {
+  background-color: var(--colour-warning);
+}
+
+.basic {
+  border: none;
+  color: var(--colour-black);
 }

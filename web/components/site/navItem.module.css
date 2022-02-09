@@ -1,0 +1,8 @@
+.nav-item {
+  margin-right: 8px;
+  font-weight: 600;
+
+  &:hover {
+    color: var(--colour-saffron);
+  }
+}

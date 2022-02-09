@@ -1,0 +1,88 @@
+.nav-mobile {
+  display: block;
+
+  @media (--medium-up) {
+    display: none;
+  }
+}
+
+.nav-drawer {
+  height: 100%;
+  width: 80vw;
+  max-width: 420px;
+  position: fixed;
+  z-index: 9999;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  transform: translateX(100%);
+  background-color: var(--colour-white);
+  overflow-x: hidden;
+  transition: transform 0.4s ease-in-out;
+  box-shadow: var(--elevation-high);
+}
+
+.show {
+  transform: translateX(0);
+}
+
+.icon {
+  display: flex;
+
+  & svg {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+.overlay {
+  background-color: var(--colour-stuffy-500);
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  opacity: 0;
+  z-index: 10;
+  pointer-events: none;
+  transition: opacity 0.5s linear;
+}
+
+.opacity {
+  opacity: 0.2;
+}
+
+.nav-header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 4px;
+  margin-bottom: 8px;
+  box-shadow: rgba(0, 0, 0, 0.075) 0 1px;
+
+  & button {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+
+    &:active {
+      color: var(--colour-stuffy-300);
+    }
+  }
+}
+
+.nav-content {
+  height: stretch;
+  box-shadow: rgba(0, 0, 0, 0.075) 0 1px;
+}
+
+.account {
+  margin-top: 8px;
+}

@@ -2,6 +2,7 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
+      "@/api": ["lib/api"],
       "@/components": ["components"],
       "@/components/auth": ["components/auth"],
       "@/components/form": ["components/form"],
@@ -10,7 +11,7 @@
       "@/context/*": ["context/*"],
       "@/clients": ["lib/clients"],
       "@/icons": ["components/icons"],
-      "@/lib/": ["lib/"],
+      "@/lib/*": ["lib/*"],
       "@/lib/auth": ["lib/auth"],
       "@/tools": ["lib/tools"]
     }

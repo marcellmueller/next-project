@@ -15,6 +15,8 @@
   --colour-emerald: #40916c;
   --colour-viridian: #0a9396;
   --colour-white: #fff;
+  --colour-black: black;
+  --colour-warning: #db5461;
 }
 
 html,

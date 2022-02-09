@@ -32,7 +32,7 @@
 }
 
 .leave {
-  transform: translateY(-50vh);
+  transform: translateY(-75vh);
 
   z-index: -1;
 }

@@ -1,15 +1,25 @@
 import cx from 'classnames';
 import styles from './button.module.css';
 
-const Button = ({ children, dark, outline, small, ...props }) => {
+const Button = ({
+  basic,
+  children,
+  dark,
+  outline,
+  plain,
+  small,
+  warning,
+  ...props
+}) => {
   return (
     <button
       className={cx(styles.button, {
         [styles.regular]: !small,
         [styles.small]: small,
-        [styles.light]: !dark || !outline,
         [styles.dark]: dark,
         [styles.outline]: outline,
+        [styles.warning]: warning,
+        [styles.basic]: basic,
       })}
       {...props}
     >

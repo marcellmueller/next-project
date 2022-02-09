@@ -3,9 +3,9 @@
   top: 0;
   left: 0;
   width: 100vw;
-  background-color: black;
-  color: white;
+  color: var(--colour-black);
   z-index: 2;
+  box-shadow: rgba(0, 0, 0, 0.075) 0 1px;
 }
 
 .container {
@@ -14,4 +14,9 @@
   max-width: var(--page-max-width);
   display: flex;
   justify-content: space-between;
+}
+
+.nav-items {
+  display: flex;
+  align-items: center;
 }

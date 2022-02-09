@@ -1,5 +1,3 @@
-import { User } from 'react-feather';
-
 import { useOpenAuthModal, useStore } from '@/context';
 import { Button } from '@/components';
 
@@ -11,7 +9,6 @@ const AccountMenu = () => {
 
   return (
     <div className={styles.account}>
-      <User />
       {!email ? (
         <Button
           onClick={() => {
@@ -21,7 +18,17 @@ const AccountMenu = () => {
           Sign In
         </Button>
       ) : (
-        <div>{email}</div>
+        <div className={styles.account}>
+          <div>{email}</div>
+          <Button
+            onClick={() => {
+              openAuthModal();
+            }}
+            warning
+          >
+            Sign Out
+          </Button>
+        </div>
       )}
     </div>
   );

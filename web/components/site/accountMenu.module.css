@@ -1,8 +1,12 @@
 .account {
-  display: flex;
+  display: none;
   align-items: center;
 
   & button {
     margin-left: 8px;
+  }
+
+  @media (--medium-up) {
+    display: flex;
   }
 }

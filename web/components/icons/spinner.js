@@ -1,4 +1,4 @@
-const Spinner = () => {
+const Spinner = ({ size = 64 }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -9,8 +9,8 @@ const Spinner = () => {
         display: 'block',
         shapeRendering: 'auto',
       }}
-      width="64px"
-      height="64px"
+      width={size}
+      height={size}
       viewBox="0 0 100 100"
       preserveAspectRatio="xMidYMid"
     >

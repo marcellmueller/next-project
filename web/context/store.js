@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { firebase } from '@/clients';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { logInWithEmailAndPassword, signInWithGoogle } from 'lib/auth';
+import { logInWithEmailAndPassword, signInWithGoogle, logout } from 'lib/auth';
 
 const initialState = {
   initialized: false,
@@ -47,7 +47,7 @@ const useStore = () => {
   return store;
 };
 
-function useSignIn() {
+const useSignIn = () => {
   const [loading, setLoading] = useState(false);
   const { setStore } = useContext(StoreContext);
   const closeAuthModal = useCloseAuthModal();
@@ -84,8 +84,34 @@ function useSignIn() {
   }
 
   return { signIn, loading };
-}
+};
 
+const useSignOut = () => {
+  const { setStore } = useContext(StoreContext);
+  const [loading, setLoading] = useState(false);
+
+  async function signOut() {
+    setLoading(true);
+
+    const res = await logout()
+      .then(() => {
+        setStore((prev) => ({
+          ...prev,
+          email: '',
+          allowCookies: false,
+          accessToken: '',
+        }));
+        setLoading(false);
+      })
+      .catch(() => {
+        setLoading(false);
+      });
+
+    return;
+  }
+
+  return { signOut, loading };
+};
 const useOpenAuthModal = () => {
   const { setStore } = useContext(StoreContext);
 
@@ -132,5 +158,6 @@ export {
   useInitUser,
   useOpenAuthModal,
   useSignIn,
+  useSignOut,
   useStore,
 };
