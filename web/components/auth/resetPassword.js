@@ -1,16 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+
 import { sendPasswordReset } from '@/lib/auth';
+
 import { AuthCard } from '.';
 import { Button } from '@/components';
 import { Input } from '@/components/form';
-import { Spinner } from '@/icons';
-
+import { Loading } from '@/components/auth';
 import styles from './resetPassword.module.css';
 
 function Reset({ onChangeAuthForm }) {
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
+
   const handlePasswordReset = async () => {
     setLoading(true);
     const res = await sendPasswordReset(email).then(() => {
@@ -18,6 +20,7 @@ function Reset({ onChangeAuthForm }) {
       setMessage('Password reset email sent!');
     });
   };
+
   return (
     <AuthCard title="Reset password">
       {!loading ? (
@@ -59,9 +62,7 @@ function Reset({ onChangeAuthForm }) {
           </div>
         </>
       ) : (
-        <div className={styles.loading}>
-          <Spinner />
-        </div>
+        <Loading />
       )}
     </AuthCard>
   );

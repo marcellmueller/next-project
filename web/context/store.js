@@ -68,6 +68,8 @@ function useSignIn() {
       try {
         const res = await logInWithEmailAndPassword(email, password);
         setUser(res.user);
+
+        return res;
       } catch (err) {
         setLoading(false);
       }

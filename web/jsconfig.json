@@ -11,7 +11,8 @@
       "@/clients": ["lib/clients"],
       "@/icons": ["components/icons"],
       "@/lib/": ["lib/"],
-      "@/lib/auth": ["lib/auth"]
+      "@/lib/auth": ["lib/auth"],
+      "@/tools": ["lib/tools"]
     }
   }
 }

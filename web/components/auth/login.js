@@ -1,28 +1,48 @@
 import React, { useEffect, useState } from 'react';
 import cx from 'classnames';
-import { auth } from 'lib/auth';
-import { useAuthState } from 'react-firebase-hooks/auth';
+
 import { Button } from '@/components';
-import { AuthCard } from '@/components/auth';
+import { AuthCard, Loading } from '@/components/auth';
 import { Input } from '@/components/form';
-import { Google, Spinner } from '@/icons';
-import styles from './login.module.css';
+import { Google } from '@/icons';
+
+import { checkEmail } from '@/tools';
 import { useSignIn } from '@/context';
+
+import styles from './login.module.css';
 
 const Login = ({ onChangeAuthForm }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  // const [user, loading, error] = useAuthState(auth);
+  const [error, setError] = useState('');
+
   const { loading, signIn } = useSignIn();
-  // useEffect(() => {
-  //   if (loading) {
-  //     // maybe trigger a loading screen
-  //     return;
-  //   }
-  // }, [user, loading]);
+
+  useEffect(() => {
+    if (checkEmail(email)) {
+      setError('');
+    }
+  }, [email]);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (checkEmail(email) && password) {
+      const res = await signIn(email, password);
+
+      if (res.user) {
+        setError('');
+      } else {
+        setError('The was an error with your request. Please try again.');
+      }
+    } else if (!checkEmail(email)) {
+      setError('Please enter a valid email.');
+    } else {
+      setError('Please enter your password.');
+    }
+  };
 
   return (
-    <AuthCard title="Sign in">
+    <AuthCard error={error} title="Sign in">
       {!loading ? (
         <form>
           <Input
@@ -38,14 +58,7 @@ const Login = ({ onChangeAuthForm }) => {
             placeholder="Password"
           />
           <div className={styles['login-buttons']}>
-            <Button
-              type="submit"
-              onClick={() => {
-                if (email && password) {
-                  signIn(email, password);
-                }
-              }}
-            >
+            <Button type="submit" onClick={handleSubmit}>
               Login
             </Button>
             <Button onClick={() => signIn()}>
@@ -75,9 +88,7 @@ const Login = ({ onChangeAuthForm }) => {
           </div>
         </form>
       ) : (
-        <div className={styles.loading}>
-          <Spinner />
-        </div>
+        <Loading />
       )}
     </AuthCard>
   );
