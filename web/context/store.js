@@ -9,6 +9,11 @@ const initialState = {
   allowCookies: false,
   email: '',
   displayName: '',
+  user: {
+    email: '',
+    displayName: '',
+    accountCreated: '',
+  },
 };
 
 const StoreContext = React.createContext({
@@ -27,12 +32,17 @@ const StoreContextProvider = ({ children }) => {
       //Do stuff
       firebase.auth().onAuthStateChanged((data) => {
         const user = data?._delegate;
+
         if (user) {
           console.log(user);
           setStore((prev) => ({
             ...prev,
-            displayName: user.displayName,
-            email: user.email,
+            user: {
+              displayName: user.displayName,
+              email: user.email,
+              accountCreated: user.metadata.creationTime,
+              photoURL: user.photoURL,
+            },
           }));
         }
       });
@@ -66,7 +76,12 @@ const useSignIn = () => {
     const setUser = (user) => {
       setStore((prev) => ({
         ...prev,
-        email: user.email,
+        user: {
+          displayName: user.displayName,
+          email: user.email,
+          accountCreated: user.metadata.creationTime,
+          photoURL: user.photoURL,
+        },
       }));
       setLoading(false);
       closeAuthModal();
@@ -106,9 +121,12 @@ const useSignOut = () => {
       .then(() => {
         setStore((prev) => ({
           ...prev,
-          email: '',
+          user: {
+            email: '',
+            displayName: '',
+            accountCreated: '',
+          },
           allowCookies: false,
-          accessToken: '',
         }));
         setLoading(false);
       })

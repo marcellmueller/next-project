@@ -5,6 +5,7 @@
       "@/api": ["lib/api"],
       "@/clients": ["lib/clients"],
       "@/components": ["components"],
+      "@/components/account": ["components/account"],
       "@/components/auth": ["components/auth"],
       "@/components/form": ["components/form"],
       "@/components/home": ["components/home"],

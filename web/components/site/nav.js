@@ -1,4 +1,5 @@
-import { AccountMenu, NavItem, NavMobile } from '@/components/site';
+import { AccountMenu } from '@/components/account';
+import { NavItem, NavMobile } from '@/components/site';
 import styles from './nav.module.css';
 
 const Nav = ({ data }) => {

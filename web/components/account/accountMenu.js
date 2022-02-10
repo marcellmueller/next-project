@@ -1,11 +1,15 @@
-import { useOpenAuthModal, useStore } from '@/context';
+import { useOpenAuthModal, useSignOut, useStore } from '@/context';
 import { Button } from '@/components';
 
 import styles from './accountMenu.module.css';
 
 const AccountMenu = () => {
   const openAuthModal = useOpenAuthModal();
-  const { email } = useStore();
+  const { loading, signOut } = useSignOut();
+
+  const {
+    user: { displayName, email },
+  } = useStore();
 
   return (
     <div className={styles.account}>
@@ -19,10 +23,10 @@ const AccountMenu = () => {
         </Button>
       ) : (
         <div className={styles.account}>
-          <div>{email}</div>
+          <div className={styles.user}>{displayName || email}</div>
           <Button
             onClick={() => {
-              openAuthModal();
+              signOut();
             }}
             warning
           >

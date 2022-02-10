@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import { registerWithEmailAndPassword } from '@/lib/auth';
-import { useSignIn } from '@/context';
+import { useCloseAuthModal, useSignIn } from '@/context';
 
 import { AuthCard, Loading } from '@/components/auth';
 import { Button } from '@/components';
@@ -15,10 +15,17 @@ const CreateAccount = ({ onChangeAuthForm }) => {
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
   const { loading, signIn } = useSignIn();
+  const closeAuthModal = useCloseAuthModal();
 
-  const register = () => {
+  const register = async () => {
     if (!name) alert('Please enter name');
     registerWithEmailAndPassword(name, email, password);
+  };
+
+  const resetState = () => {
+    setEmail('');
+    setPassword('');
+    setName('');
   };
 
   return (
@@ -43,7 +50,16 @@ const CreateAccount = ({ onChangeAuthForm }) => {
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Password"
           />
-          <Button type="submit" onClick={register}>
+          <Button
+            type="submit"
+            onClick={(e) => {
+              e.preventDefault();
+              register().then(() => {
+                closeAuthModal();
+                resetState();
+              });
+            }}
+          >
             Register
           </Button>
 

@@ -1,4 +1,3 @@
-import { initializeApp } from 'firebase/app';
 import {
   GoogleAuthProvider,
   getAuth,
@@ -7,6 +6,8 @@ import {
   createUserWithEmailAndPassword,
   sendPasswordResetEmail,
   signOut,
+  updateEmail,
+  updateProfile,
 } from 'firebase/auth';
 import {
   getFirestore,
@@ -35,6 +36,7 @@ const signInWithGoogle = async () => {
         name: user.displayName,
         authProvider: 'google',
         email: user.email,
+        darkMode: false,
       });
     }
     return res;
@@ -65,6 +67,7 @@ const logInWithEmailAndPassword = async (email, password) => {
 };
 
 const registerWithEmailAndPassword = async (name, email, password) => {
+  console.log('click');
   try {
     const res = await createUserWithEmailAndPassword(auth, email, password);
     const user = res.user;
@@ -89,6 +92,31 @@ const sendPasswordReset = async (email) => {
   }
 };
 
+const updateAccountProfile = (displayName, photoURL) => {
+  updateProfile(auth.currentUser, {
+    displayName: displayName,
+    photoURL: photoURL,
+  })
+    .then((res) => {
+      return res;
+    })
+    .catch((err) => {
+      console.log(err);
+      return err;
+    });
+};
+
+const updateAccountEmail = (email) => {
+  updateEmail(auth.currentUser, email)
+    .then((res) => {
+      return res;
+    })
+    .catch((err) => {
+      console.log(err);
+      return err;
+    });
+};
+
 const logout = async () => {
   return await signOut(auth);
 };
@@ -96,9 +124,11 @@ const logout = async () => {
 export {
   auth,
   db,
-  signInWithGoogle,
   logInWithEmailAndPassword,
+  logout,
   registerWithEmailAndPassword,
   sendPasswordReset,
-  logout,
+  signInWithGoogle,
+  updateAccountEmail,
+  updateAccountProfile,
 };
