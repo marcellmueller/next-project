@@ -16,19 +16,10 @@ import {
   where,
   addDoc,
 } from 'firebase/firestore';
+import { firebase } from '@/clients';
 
-const firebaseConfig = {
-  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
-  authDomain: `${process.env.NEXT_PUBLIC_FIREBASE_PROJECT}.firebaseapp.com`,
-  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT,
-  storageBucket: `${process.env.NEXT_PUBLIC_FIREBASE_PROJECT}.appspot.com`,
-  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
-  measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
-};
-
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
+const auth = getAuth(firebase);
+const db = getFirestore(firebase);
 const googleProvider = new GoogleAuthProvider();
 
 const signInWithGoogle = async () => {
@@ -55,7 +46,17 @@ const signInWithGoogle = async () => {
 
 const logInWithEmailAndPassword = async (email, password) => {
   try {
-    const res = await signInWithEmailAndPassword(auth, email, password);
+    const res = await signInWithEmailAndPassword(auth, email, password).then(
+      (user) => {
+        firebase
+          .auth()
+          .currentUser.getIdToken(true)
+          .then((token) => {
+            console.log(token);
+          });
+        return user;
+      }
+    );
     return res;
   } catch (err) {
     console.error(err);

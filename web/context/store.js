@@ -5,11 +5,10 @@ import { logInWithEmailAndPassword, signInWithGoogle, logout } from 'lib/auth';
 
 const initialState = {
   initialized: false,
-  accessToken: '',
   authModal: false,
   allowCookies: false,
-  authPending: true,
-  email: undefined,
+  email: '',
+  displayName: '',
 };
 
 const StoreContext = React.createContext({
@@ -19,21 +18,30 @@ const StoreContext = React.createContext({
 
 const StoreContextProvider = ({ children }) => {
   const [store, setStore] = useState(initialState);
-  const [initialized, setInitialized] = useState(false);
   const [user, userLoading] = useAuthState(firebase.auth());
 
   useEffect(() => {
     //Leave here for development to monitor state
     console.log(store);
-    if (!initialized) {
+    if (!store.initialized) {
       //Do stuff
-      setInitialized(true);
+      firebase.auth().onAuthStateChanged((data) => {
+        const user = data?._delegate;
+        if (user) {
+          console.log(user);
+          setStore((prev) => ({
+            ...prev,
+            displayName: user.displayName,
+            email: user.email,
+          }));
+        }
+      });
       setStore((prev) => ({
         ...prev,
         initialized: true,
       }));
     }
-  }, [initialized, store]);
+  }, [store]);
 
   return (
     <StoreContext.Provider value={{ store, setStore }}>
@@ -67,6 +75,7 @@ const useSignIn = () => {
     if (email && password) {
       try {
         const res = await logInWithEmailAndPassword(email, password);
+        console.log(res);
         setUser(res.user);
 
         return res;
@@ -137,25 +146,9 @@ const useCloseAuthModal = () => {
   return closeAuthModal;
 };
 
-const useInitUser = () => {
-  const { setStore } = useContext(StoreContext);
-
-  async function initUser(user) {
-    const { accessToken, email } = user;
-    setStore((prevState) => ({
-      ...prevState,
-      accessToken: accessToken,
-      email: email,
-    }));
-  }
-
-  return initUser;
-};
-
 export {
   StoreContextProvider,
   useCloseAuthModal,
-  useInitUser,
   useOpenAuthModal,
   useSignIn,
   useSignOut,
