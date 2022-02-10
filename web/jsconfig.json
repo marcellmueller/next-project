@@ -8,6 +8,7 @@
       "@/components/auth": ["components/auth"],
       "@/components/form": ["components/form"],
       "@/components/home": ["components/home"],
+      "@/components/scenes": ["components/scenes"],
       "@/components/site": ["components/site"],
       "@/context": ["context/store"],
       "@/context/*": ["context/*"],
