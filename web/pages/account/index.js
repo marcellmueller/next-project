@@ -1,9 +1,24 @@
+import { useEffect } from 'react';
+import { useRouter } from 'next/router';
+
 import { getStaticPage } from '@/api';
 
 import { Layout } from '@/components';
 import { AccountTabs } from '@/components/account';
+
+import { useStore } from '@/context';
+
 const Account = ({ data }) => {
   const { page, site } = data;
+  const { email } = useStore();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!email) {
+      router.push('/');
+    }
+  }, [email]);
+
   return (
     <Layout site={site}>
       <AccountTabs />

@@ -1,6 +1,12 @@
+.container {
+  position: relative;
+  display: block;
+}
+
 .account {
   display: none;
   align-items: center;
+
   & button {
     margin-left: 8px;
   }
@@ -13,4 +19,38 @@
 .user {
   user-select: none;
   cursor: default;
+}
+
+.dropdown {
+  position: absolute;
+  background-color: var(--colour-white);
+  transition: all 0.7s;
+  margin: 0 auto;
+  height: 0;
+  overflow: hidden;
+  text-align: left;
+  padding: 0;
+  border-top: 0;
+  width: 200px;
+
+  border-bottom: 0;
+  border-radius: var(--border-card-radius);
+  max-height: 0px;
+
+  transition: var(--transition-cubic-bezier);
+}
+
+.active {
+  height: auto;
+  z-index: 11;
+  max-height: 200px;
+  box-shadow: var(--elevation-low);
+}
+
+.disabled {
+  opacity: 0.4;
+}
+
+.button {
+  margin-right: 8px;
 }

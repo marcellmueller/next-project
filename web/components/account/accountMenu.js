@@ -1,40 +1,72 @@
+import { useState } from 'react';
+import Link from 'next/link';
+import cx from 'classnames';
 import { useOpenAuthModal, useSignOut, useStore } from '@/context';
+import OutsideClickHandler from 'react-outside-click-handler';
+import { Tool } from 'react-feather';
 import { Button } from '@/components';
 
 import styles from './accountMenu.module.css';
 
 const AccountMenu = () => {
+  const [open, setOpen] = useState(false);
   const openAuthModal = useOpenAuthModal();
-  const { loading, signOut } = useSignOut();
+  const { signOut } = useSignOut();
 
   const {
     user: { displayName, email },
   } = useStore();
 
   return (
-    <div className={styles.account}>
-      {!email ? (
-        <Button
-          onClick={() => {
-            openAuthModal();
-          }}
-        >
-          Sign In
-        </Button>
-      ) : (
-        <div className={styles.account}>
-          <div className={styles.user}>{displayName || email}</div>
+    <span
+      className={styles.container}
+      onMouseEnter={() => setOpen(true)}
+      onClick={() => setOpen(!open)}
+    >
+      <div className={styles.account}>
+        {!email ? (
           <Button
             onClick={() => {
-              signOut();
+              openAuthModal();
             }}
-            warning
           >
-            Sign Out
+            Sign In
           </Button>
+        ) : (
+          <div className={styles.account}>
+            <div
+              className={cx(styles.user, {
+                [styles.disabled]: open,
+              })}
+            >
+              {displayName || email}
+            </div>
+            <Button
+              onClick={() => {
+                signOut();
+              }}
+              warning
+            >
+              Sign Out
+            </Button>
+          </div>
+        )}
+      </div>
+
+      <OutsideClickHandler onOutsideClick={() => setOpen(false)}>
+        <div
+          className={cx(styles.dropdown, {
+            [styles.active]: open,
+          })}
+        >
+          <Link href="/account">
+            <Button basic>
+              <Tool className={styles.button} /> Account settings
+            </Button>
+          </Link>
         </div>
-      )}
-    </div>
+      </OutsideClickHandler>
+    </span>
   );
 };
 

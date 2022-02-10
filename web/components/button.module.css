@@ -5,6 +5,8 @@
   transition: all 0.3s;
   color: var(--colour-white);
   background-color: var(--colour-saffron);
+  display: flex;
+  align-items: center;
 
   &:hover {
     opacity: 0.7;
@@ -35,5 +37,6 @@
 
 .basic {
   border: none;
+  background-color: transparent;
   color: var(--colour-black);
 }

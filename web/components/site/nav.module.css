@@ -11,6 +11,8 @@
 .container {
   margin: 0 auto;
   padding: 8px;
+  max-height: 50px;
+
   max-width: var(--page-max-width);
   display: flex;
   justify-content: space-between;
