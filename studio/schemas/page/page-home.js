@@ -10,9 +10,17 @@ export default {
       validation: (Rule) => Rule.required(),
     },
     {
-      name: 'cover',
-      title: 'Cover image',
-      type: 'image',
+      name: 'modules',
+      title: 'Modules',
+      type: 'array',
+      of: [
+        { type: 'headline' },
+        { type: 'flickerText' },
+        { type: 'flickerImage' },
+      ],
+      options: {
+        editModal: 'dialog',
+      },
     },
   ],
 };

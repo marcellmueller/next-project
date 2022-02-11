@@ -16,6 +16,10 @@ import settingsHeader from './page/settings-header';
 
 // Types
 import blockContent from './types/blockContent';
+import blockContentSimple from './types/blockContentSimple';
+import flickerText from './modules/flicker-text';
+import flickerImage from './modules/flicker-image';
+import headline from './modules/headline';
 import link from './types/link';
 
 export default createSchema({
@@ -38,6 +42,10 @@ export default createSchema({
 
     // Types
     blockContent,
+    blockContentSimple,
+    flickerImage,
+    flickerText,
+    headline,
     link,
   ]),
 });
