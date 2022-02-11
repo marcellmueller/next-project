@@ -8,8 +8,8 @@ const Home = ({ data }) => {
   return (
     <Layout site={site}>
       {modules &&
-        modules.map((module) => {
-          return <Modules module={module} />;
+        modules.map((module, i) => {
+          return <Modules key={i} module={module} />;
         })}
     </Layout>
   );

@@ -10,10 +10,13 @@ import { useStore } from '@/context';
 
 const Account = ({ data }) => {
   const { page, site } = data;
-  const { email } = useStore();
+  const {
+    user: { email },
+  } = useStore();
   const router = useRouter();
 
   useEffect(() => {
+    console.log(email);
     if (!email) {
       router.push('/');
     }

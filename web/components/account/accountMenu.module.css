@@ -23,15 +23,15 @@
 
 .dropdown {
   position: absolute;
+  left: -40px;
+  top: 44px;
   background-color: var(--colour-white);
   transition: all 0.7s;
   margin: 0 auto;
   height: 0;
   overflow: hidden;
   text-align: left;
-  padding: 0;
   border-top: 0;
-  width: 200px;
 
   border-bottom: 0;
   border-radius: var(--border-card-radius);
@@ -46,11 +46,26 @@
   max-height: 200px;
   box-shadow: var(--elevation-low);
 }
-
+/* 
 .disabled {
   opacity: 0.4;
-}
+} */
 
 .button {
   margin-right: 8px;
+}
+
+.image {
+  position: relative;
+  width: 32px;
+  height: 32px;
+  overflow: hidden;
+  border-radius: 50%;
+  box-shadow: var(--elevation-low);
+  margin-right: 8px;
+
+  & img {
+    width: 100%;
+    height: auto;
+  }
 }

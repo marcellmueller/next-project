@@ -92,7 +92,7 @@ const sendPasswordReset = async (email) => {
   }
 };
 
-const updateAccountProfile = (displayName, photoURL) => {
+const updateAccountProfile = async (displayName, photoURL) => {
   updateProfile(auth.currentUser, {
     displayName: displayName,
     photoURL: photoURL,
@@ -106,7 +106,7 @@ const updateAccountProfile = (displayName, photoURL) => {
     });
 };
 
-const updateAccountEmail = (email) => {
+const updateAccountEmail = async (email) => {
   updateEmail(auth.currentUser, email)
     .then((res) => {
       return res;

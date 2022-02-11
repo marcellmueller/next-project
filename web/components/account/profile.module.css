@@ -1,0 +1,18 @@
+.image {
+  position: relative;
+  width: 128px;
+  height: 128px;
+  overflow: hidden;
+  border-radius: 50%;
+  box-shadow: var(--elevation-low);
+  margin-right: 8px;
+
+  & img {
+    width: 100%;
+    height: auto;
+  }
+}
+
+.name {
+  margin: 16px 0;
+}

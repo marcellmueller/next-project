@@ -7,8 +7,6 @@ const initialState = {
   initialized: false,
   authModal: false,
   allowCookies: false,
-  email: '',
-  displayName: '',
   user: {
     email: '',
     displayName: '',
@@ -34,14 +32,14 @@ const StoreContextProvider = ({ children }) => {
         const user = data?._delegate;
 
         if (user) {
-          console.log(user);
+          const { displayName, email, photoURL } = user;
           setStore((prev) => ({
             ...prev,
             user: {
-              displayName: user.displayName,
-              email: user.email,
+              displayName: displayName,
+              email: email,
               accountCreated: user.metadata.creationTime,
-              photoURL: user.photoURL,
+              photoURL: photoURL,
             },
           }));
         }

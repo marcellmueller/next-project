@@ -14,7 +14,7 @@ const AccountMenu = () => {
   const { signOut } = useSignOut();
 
   const {
-    user: { displayName, email },
+    user: { displayName, email, photoURL },
   } = useStore();
 
   return (
@@ -39,7 +39,13 @@ const AccountMenu = () => {
                 [styles.disabled]: open,
               })}
             >
-              {displayName || email}
+              {photoURL ? (
+                <div className={styles.image}>
+                  <img src={photoURL} />
+                </div>
+              ) : (
+                <>{displayName || email}</>
+              )}
             </div>
             <Button
               onClick={() => {
