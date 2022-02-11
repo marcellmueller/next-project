@@ -35,3 +35,23 @@ export async function getHomePage() {
 
   return data;
 }
+
+export async function getAllDocumentSlugs(docType) {
+  const query = /* groq */ `
+    *[_type == $type].slug.current
+  `;
+  return await sanity.fetch(query, { type: docType });
+}
+
+export async function getProjectPage(slug) {
+  const query = /* groq */ `
+    {
+      'page': *[_type == 'project' && slug.current == $slug][0] {
+        ...,
+      },
+      ${site}
+    }
+  `;
+
+  return await sanity.fetch(query, { slug });
+}

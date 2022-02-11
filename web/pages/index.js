@@ -5,6 +5,7 @@ import { Modules } from '@/components/home';
 const Home = ({ data }) => {
   const { page, site } = data;
   const { modules } = page;
+
   return (
     <Layout site={site}>
       {modules &&
