@@ -1,21 +1,23 @@
 import {
+  createUserWithEmailAndPassword,
   GoogleAuthProvider,
   getAuth,
+  sendPasswordResetEmail,
   signInWithPopup,
   signInWithEmailAndPassword,
-  createUserWithEmailAndPassword,
-  sendPasswordResetEmail,
   signOut,
   updateEmail,
   updateProfile,
 } from 'firebase/auth';
 import {
-  getFirestore,
-  query,
-  getDocs,
   collection,
+  doc,
+  getDocs,
+  getFirestore,
+  setDoc,
+  query,
+  updateDoc,
   where,
-  addDoc,
 } from 'firebase/firestore';
 import { firebase } from '@/clients';
 
@@ -31,7 +33,7 @@ const signInWithGoogle = async () => {
     const docs = await getDocs(q);
 
     if (docs.docs.length === 0) {
-      await addDoc(collection(db, 'users'), {
+      await setDoc(doc(db, 'users', user.uid), {
         uid: user.uid,
         name: user.displayName,
         authProvider: 'google',
@@ -71,11 +73,12 @@ const registerWithEmailAndPassword = async (name, email, password) => {
   try {
     const res = await createUserWithEmailAndPassword(auth, email, password);
     const user = res.user;
-    await addDoc(collection(db, 'users'), {
+    await setDoc(doc(db, 'users', user.uid), {
       uid: user.uid,
       name,
       authProvider: 'local',
       email,
+      darkMode: false,
     });
   } catch (err) {
     console.error(err);
@@ -121,6 +124,11 @@ const logout = async () => {
   return await signOut(auth);
 };
 
+const updateAccountSettings = async (docData = {}) => {
+  const user = auth.currentUser;
+  await updateDoc(doc(db, 'users', user.uid), docData);
+};
+
 export {
   auth,
   db,
@@ -131,4 +139,5 @@ export {
   signInWithGoogle,
   updateAccountEmail,
   updateAccountProfile,
+  updateAccountSettings,
 };

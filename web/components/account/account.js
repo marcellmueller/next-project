@@ -1,9 +1,5 @@
 import { useState } from 'react';
-import {
-  updateAccountEmail,
-  updateAccountProfile,
-  useSignOut,
-} from '@/lib/auth';
+import { updateAccountEmail, updateAccountProfile } from '@/lib/auth';
 import { useStore } from '@/context';
 import { Button } from '@/components';
 import { Input } from '@/components/form';
@@ -26,7 +22,6 @@ const Account = () => {
   const handleEmailUpdate = async (e) => {
     e.preventDefault();
     const res = updateAccountEmail(userEmail);
-    console.log(res.status);
   };
   return (
     <div>
