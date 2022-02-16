@@ -3,9 +3,10 @@ import { firebase } from '@/clients';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import {
   logInWithEmailAndPassword,
+  logout,
   retrieveUserData,
   signInWithGoogle,
-  logout,
+  updateAccountSettings,
 } from 'lib/auth';
 import { changeTheme } from '@/lib/tools';
 import { dark, light } from '@/themes';
@@ -189,6 +190,7 @@ const useSwitchTheme = () => {
   const { setStore } = useContext(StoreContext);
 
   async function switchTheme(theme) {
+    updateAccountSettings({ theme });
     setStore((prevState) => ({
       ...prevState,
       user: {
