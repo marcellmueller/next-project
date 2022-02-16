@@ -6,7 +6,7 @@
   color: var(--color);
   background-color: var(--color-background);
   z-index: 2;
-  box-shadow: rgba(0, 0, 0, 0.075) 0 1px;
+  box-shadow: var(--color-transparent) 0 1px;
 }
 
 .container {

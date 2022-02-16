@@ -1,9 +1,11 @@
 export const light = {
   color: 'black',
-  backgroundColor: 'light',
+  background: ' #fff',
+  transparent: 'rgba(0, 0, 0, 0.1)',
 };
 
 export const dark = {
-  color: 'white',
-  backgroundColor: 'black',
+  color: ' #fff',
+  background: 'black',
+  transparent: 'rgba(255,255,255, 0.3)',
 };

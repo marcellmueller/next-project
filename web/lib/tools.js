@@ -13,10 +13,11 @@ export const formatDate = (date) => {
 };
 
 export const changeTheme = (theme) => {
-  const { color, backgroundColor } = theme;
+  const { color, background, transparent } = theme;
   document.documentElement.style.setProperty('--color', color);
+  document.documentElement.style.setProperty('--color-background', background);
   document.documentElement.style.setProperty(
-    '--color-background',
-    backgroundColor
+    '--color-transparent',
+    transparent
   );
 };

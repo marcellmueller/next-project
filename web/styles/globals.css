@@ -18,8 +18,9 @@
   --colour-black: black;
   --colour-warning: #db5461;
 
-  --color: 'black';
-  --color-background: 'white';
+  --color: black;
+  --color-background: #fff;
+  --color-transparent: rgba(0, 0, 0, 0.1);
 }
 
 html,
