@@ -18,11 +18,7 @@ const AccountMenu = () => {
   } = useStore();
 
   return (
-    <span
-      className={styles.container}
-      onMouseEnter={() => setOpen(true)}
-      onClick={() => setOpen(!open)}
-    >
+    <span className={styles.container}>
       <div className={styles.account}>
         {!email ? (
           <Button
@@ -38,6 +34,8 @@ const AccountMenu = () => {
               className={cx(styles.user, {
                 [styles.disabled]: open,
               })}
+              onMouseEnter={() => setOpen(true)}
+              onClick={() => setOpen(!open)}
             >
               {photoURL ? (
                 <div className={styles.image}>

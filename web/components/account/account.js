@@ -23,6 +23,7 @@ const Account = () => {
     e.preventDefault();
     const res = updateAccountEmail(userEmail);
   };
+
   return (
     <div>
       <form className={styles['account-update-form']}>

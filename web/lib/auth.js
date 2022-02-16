@@ -12,6 +12,7 @@ import {
 import {
   collection,
   doc,
+  getDoc,
   getDocs,
   getFirestore,
   setDoc,
@@ -69,7 +70,6 @@ const logInWithEmailAndPassword = async (email, password) => {
 };
 
 const registerWithEmailAndPassword = async (name, email, password) => {
-  console.log('click');
   try {
     const res = await createUserWithEmailAndPassword(auth, email, password);
     const user = res.user;
@@ -129,12 +129,21 @@ const updateAccountSettings = async (docData = {}) => {
   await updateDoc(doc(db, 'users', user.uid), docData);
 };
 
+const retrieveUserData = async () => {
+  const user = auth.currentUser;
+  const docRef = doc(db, 'users', user.uid);
+  const docSnap = await getDoc(docRef);
+
+  return docSnap.data();
+};
+
 export {
   auth,
   db,
   logInWithEmailAndPassword,
   logout,
   registerWithEmailAndPassword,
+  retrieveUserData,
   sendPasswordReset,
   signInWithGoogle,
   updateAccountEmail,

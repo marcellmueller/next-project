@@ -1,7 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { firebase } from '@/clients';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { logInWithEmailAndPassword, signInWithGoogle, logout } from 'lib/auth';
+import {
+  logInWithEmailAndPassword,
+  retrieveUserData,
+  signInWithGoogle,
+  logout,
+} from 'lib/auth';
 
 const initialState = {
   initialized: false,
@@ -11,6 +16,8 @@ const initialState = {
     email: '',
     displayName: '',
     accountCreated: '',
+    photoURL: '',
+    darkMode: false,
   },
 };
 
@@ -27,21 +34,25 @@ const StoreContextProvider = ({ children }) => {
     //Leave here for development to monitor state
     console.log(store);
     if (!store.initialized) {
-      //Do stuff
       firebase.auth().onAuthStateChanged((data) => {
         const user = data?._delegate;
 
         if (user) {
-          const { displayName, email, photoURL } = user;
-          setStore((prev) => ({
-            ...prev,
-            user: {
-              displayName: displayName,
-              email: email,
-              accountCreated: user.metadata.creationTime,
-              photoURL: photoURL,
-            },
-          }));
+          // Retrieve additional user data from firestore
+          retrieveUserData().then((res) => {
+            const { displayName, email, photoURL } = user;
+            const { darkMode } = res;
+            setStore((prev) => ({
+              ...prev,
+              user: {
+                displayName: displayName,
+                email: email,
+                accountCreated: user.metadata.creationTime,
+                photoURL: photoURL,
+                darkMode: darkMode,
+              },
+            }));
+          });
         }
       });
       setStore((prev) => ({
@@ -72,33 +83,38 @@ const useSignIn = () => {
     setLoading(true);
 
     const setUser = (user) => {
-      setStore((prev) => ({
-        ...prev,
-        user: {
-          displayName: user.displayName,
-          email: user.email,
-          accountCreated: user.metadata.creationTime,
-          photoURL: user.photoURL,
-        },
-      }));
-      setLoading(false);
-      closeAuthModal();
+      // Retrieve additional user data from firestore
+      retrieveUserData().then((res) => {
+        const { displayName, email, metadata, photoURL } = user;
+        const { darkMode } = res;
+        setStore((prev) => ({
+          ...prev,
+          user: {
+            displayName: displayName,
+            email: email,
+            accountCreated: metadata.creationTime,
+            photoURL: photoURL,
+            darkMode: darkMode,
+          },
+        }));
+        setLoading(false);
+        closeAuthModal();
+      });
     };
 
     if (email && password) {
       try {
-        const res = await logInWithEmailAndPassword(email, password);
-        console.log(res);
-        setUser(res.user);
-
-        return res;
+        await logInWithEmailAndPassword(email, password).then((res) => {
+          setUser(res.user);
+        });
       } catch (err) {
         setLoading(false);
       }
     } else {
       try {
-        const res = await signInWithGoogle();
-        setUser(res.user);
+        await signInWithGoogle().then((res) => {
+          setUser(res.user);
+        });
       } catch (err) {
         setLoading(false);
       }
@@ -117,15 +133,7 @@ const useSignOut = () => {
 
     const res = await logout()
       .then(() => {
-        setStore((prev) => ({
-          ...prev,
-          user: {
-            email: '',
-            displayName: '',
-            accountCreated: '',
-          },
-          allowCookies: false,
-        }));
+        setStore(initialState);
         setLoading(false);
       })
       .catch(() => {
@@ -137,6 +145,7 @@ const useSignOut = () => {
 
   return { signOut, loading };
 };
+
 const useOpenAuthModal = () => {
   const { setStore } = useContext(StoreContext);
 
@@ -162,6 +171,22 @@ const useCloseAuthModal = () => {
   return closeAuthModal;
 };
 
+const useSwitchDarkMode = () => {
+  const { setStore } = useContext(StoreContext);
+
+  async function switchDarkMode() {
+    setStore((prevState) => ({
+      ...prevState,
+      user: {
+        ...prevState.user,
+        darkMode: !prevState.user.darkMode,
+      },
+    }));
+  }
+
+  return switchDarkMode;
+};
+
 export {
   StoreContextProvider,
   useCloseAuthModal,
@@ -169,4 +194,5 @@ export {
   useSignIn,
   useSignOut,
   useStore,
+  useSwitchDarkMode,
 };

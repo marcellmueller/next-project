@@ -3,7 +3,6 @@ import { Headline } from '@/components/home';
 
 const Modules = ({ module }) => {
   const { _type } = module;
-  console.log(module);
   switch (_type) {
     case 'headline':
       return <Headline content={module} />;

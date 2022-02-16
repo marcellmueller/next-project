@@ -16,7 +16,6 @@ const Account = ({ data }) => {
   const router = useRouter();
 
   useEffect(() => {
-    console.log(email);
     if (!email) {
       router.push('/');
     }
