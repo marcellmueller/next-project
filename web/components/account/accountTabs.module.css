@@ -1,5 +1,7 @@
 .account-container {
   width: 100%;
+  color: var(--color);
+  background-color: var(--color-background);
 }
 
 .tabs {
@@ -10,7 +12,7 @@
 .tab {
   position: relative;
   top: 1px;
-  background-color: var(--colour-white);
+  background-color: var(--color-background);
   padding: 8px 16px;
   border-top-right-radius: var(--border-card-radius);
   border-top-left-radius: var(--border-card-radius);

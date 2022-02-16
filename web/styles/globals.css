@@ -17,6 +17,9 @@
   --colour-white: #fff;
   --colour-black: black;
   --colour-warning: #db5461;
+
+  --color: 'black';
+  --color-background: 'white';
 }
 
 html,

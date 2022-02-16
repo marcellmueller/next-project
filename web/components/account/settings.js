@@ -1,26 +1,26 @@
-import { useStore, useSwitchDarkMode } from '@/context';
+import { useStore, useSwitchTheme } from '@/context';
 
 import { Toggle } from '@/components/form';
 import styles from './settings.module.css';
 
 const Settings = () => {
   const {
-    user: { darkMode },
+    user: { theme },
   } = useStore();
-  const switchDarkMode = useSwitchDarkMode();
+  const switchTheme = useSwitchTheme();
 
   return (
-    <>
+    <div className={styles.settings}>
       <div className={styles.option}>
         <Toggle
           description="Enable dark mode"
-          checked={darkMode}
+          checked={theme === 'dark'}
           onChange={() => {
-            switchDarkMode();
+            switchTheme(theme === 'dark' ? 'light' : 'dark');
           }}
         />
       </div>
-    </>
+    </div>
   );
 };
 

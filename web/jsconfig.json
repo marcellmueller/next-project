@@ -15,6 +15,7 @@
       "@/icons": ["components/icons"],
       "@/lib/*": ["lib/*"],
       "@/lib/auth": ["lib/auth"],
+      "@/themes": ["lib/themes"],
       "@/tools": ["lib/tools"]
     }
   }

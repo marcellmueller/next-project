@@ -20,6 +20,7 @@ import {
   updateDoc,
   where,
 } from 'firebase/firestore';
+
 import { firebase } from '@/clients';
 
 const auth = getAuth(firebase);
@@ -39,7 +40,7 @@ const signInWithGoogle = async () => {
         name: user.displayName,
         authProvider: 'google',
         email: user.email,
-        darkMode: false,
+        theme: 'light',
       });
     }
     return res;
@@ -78,7 +79,7 @@ const registerWithEmailAndPassword = async (name, email, password) => {
       name,
       authProvider: 'local',
       email,
-      darkMode: false,
+      theme: 'light',
     });
   } catch (err) {
     console.error(err);

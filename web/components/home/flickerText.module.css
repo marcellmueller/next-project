@@ -1,5 +1,6 @@
 .flicker-container {
   margin: 6em auto;
+  color: var(--color);
 }
 
 .flicker-item {

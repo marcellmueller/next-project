@@ -24,7 +24,13 @@ const Layout = ({ title, children, site = {} }) => {
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <link rel="manifest" href="/manifest.webmanifest" /> */}
       </Head>
-
+      <style jsx global>
+        {`
+          body {
+            background: var(--color-background);
+          }
+        `}
+      </style>
       <AuthModal />
       <Nav data={site.header} />
       <main className={styles.main}>{children}</main>

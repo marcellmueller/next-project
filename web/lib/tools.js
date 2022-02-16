@@ -11,3 +11,12 @@ export const checkEmail = (email) => {
 export const formatDate = (date) => {
   return format(new Date(date), 'MMMM d, yyyy');
 };
+
+export const changeTheme = (theme) => {
+  const { color, backgroundColor } = theme;
+  document.documentElement.style.setProperty('--color', color);
+  document.documentElement.style.setProperty(
+    '--color-background',
+    backgroundColor
+  );
+};

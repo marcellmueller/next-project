@@ -3,7 +3,8 @@
   top: 0;
   left: 0;
   width: 100vw;
-  color: var(--colour-black);
+  color: var(--color);
+  background-color: var(--color-background);
   z-index: 2;
   box-shadow: rgba(0, 0, 0, 0.075) 0 1px;
 }

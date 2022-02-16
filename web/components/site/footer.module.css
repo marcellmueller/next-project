@@ -2,6 +2,6 @@
   position: absolute;
   bottom: 0;
   width: 100vw;
-  background-color: black;
-  color: white;
+  background-color: var(--color-background);
+  color: var(--color);
 }

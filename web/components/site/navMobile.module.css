@@ -39,7 +39,7 @@
 }
 
 .overlay {
-  background-color: var(--colour-stuffy-500);
+  background-color: black;
   position: fixed;
   top: 0;
   right: 0;
@@ -71,10 +71,6 @@
     width: 24px;
     height: 24px;
     cursor: pointer;
-
-    &:active {
-      color: var(--colour-stuffy-300);
-    }
   }
 }
 
