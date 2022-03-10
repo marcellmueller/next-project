@@ -4,18 +4,18 @@ const Toggle = ({ description, ...props }) => {
   if (description) {
     return (
       <div className={styles['switch-container']}>
-        <label class={styles.switch}>
+        <label className={styles.switch}>
           <input type="checkbox" {...props} />
-          <div class={styles.slider}></div>
+          <div className={styles.slider}></div>
         </label>
         <span>{description}</span>
       </div>
     );
   } else
     return (
-      <label class={styles.switch}>
+      <label className={styles.switch}>
         <input type="checkbox" {...props} />
-        <div class={styles.slider}></div>
+        <div className={styles.slider}></div>
       </label>
     );
 };

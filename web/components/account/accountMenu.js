@@ -39,7 +39,7 @@ const AccountMenu = () => {
             >
               {photoURL ? (
                 <div className={styles.image}>
-                  <img src={photoURL} />
+                  <img alt="" src={photoURL} />
                 </div>
               ) : (
                 <>{displayName || email}</>
@@ -63,7 +63,7 @@ const AccountMenu = () => {
             [styles.active]: open,
           })}
         >
-          <Link href="/account">
+          <Link href="/account" passHref>
             <Button basic>
               <Tool className={styles.button} /> Account settings
             </Button>

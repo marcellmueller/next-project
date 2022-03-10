@@ -28,7 +28,7 @@ const Account = () => {
     <div>
       <form className={styles['account-update-form']}>
         <h2>Edit account details</h2>
-        <label for="name">Full name</label>
+        <label htmlFor="name">Full name</label>
         <Input
           type="text"
           name="name"
@@ -36,7 +36,7 @@ const Account = () => {
           onChange={(e) => setName(e.target.value)}
           placeholder="Full name"
         />
-        <label for="photo">Profile photo URL</label>
+        <label htmlFor="photo">Profile photo URL</label>
         <Input
           type="text"
           name="photo"
@@ -51,7 +51,7 @@ const Account = () => {
 
       <form className={styles['account-email-form']}>
         <h2>Change account email</h2>
-        <label for="email">Email</label>
+        <label htmlFor="email">Email</label>
         <Input
           type="text"
           name="email"

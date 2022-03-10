@@ -1,8 +1,13 @@
 import { getAllDocumentSlugs, getProjectPage } from '@/api';
-
+import { useRouter } from 'next/router';
 import { Layout } from '@/components';
 
 const Project = ({ data }) => {
+  const router = useRouter();
+  if (router.isFallback) {
+    return <div>Loading...</div>;
+  }
+
   const { page, site } = data;
   return <Layout site={site}>Project</Layout>;
 };

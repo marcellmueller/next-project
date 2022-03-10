@@ -19,7 +19,7 @@ const Account = ({ data }) => {
     if (!email) {
       router.push('/');
     }
-  }, [email]);
+  }, [email, router]);
 
   return (
     <Layout site={site}>

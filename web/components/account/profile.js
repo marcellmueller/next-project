@@ -9,7 +9,7 @@ const Profile = () => {
   return (
     <div className={styles.profile}>
       <div className={styles.image}>
-        <img src={photoURL} />
+        <img alt="" src={photoURL} />
       </div>
       <h2 className={styles.name}>{displayName}</h2>
       <div>{email}</div>
