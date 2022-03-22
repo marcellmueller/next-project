@@ -1,19 +1,17 @@
-FROM node:lts-alpine AS deps
 
-RUN mkdir -p /usr/src/app
-ENV PORT 3000
+FROM node:alpine as builder
 
-WORKDIR /app
+WORKDIR /usr/src/app
 
-COPY package.json /app
-COPY yarn.lock /app
+COPY . .
 
-RUN yarn install
+RUN yarn
 
-COPY . /app
+# Building app
+RUN NEXT_PUBLIC_ENVIROMENT_VAR=APP_NEXT_PUBLIC_ENVIROMENT_VAR yarn build
 
-RUN yarn build
-
+# Permisions to execute script
+RUN ["chmod", "+x", "./entrypoint.sh"]
+ENTRYPOINT ["/usr/src/app/entrypoint.sh"]
 EXPOSE 3000
 CMD [ "yarn", "start" ]
-
